@@ -8,23 +8,11 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- [[ Configure and install plugins ]]
---
---  To check the current status of your plugins, run
---    :Lazy
---
---  You can press `?` in this menu for help. Use `:q` to close the window
---
---  To update plugins you can run
---    :Lazy update
---
---
 require("wsl")
 require("options")
 require("keymaps")
--- NOTE: Here is where you install your plugins.
+
 require("lazy").setup({
-	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	{ import = "plugins" },
 	{ import = "plugins.langs" },
 }, {
@@ -47,5 +35,11 @@ require("lazy").setup({
 	},
 })
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+local format_sync_grp = vim.api.nvim_create_augroup("goimports", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+	pattern = "*.go",
+	callback = function()
+		require("go.format").goimports()
+	end,
+	group = format_sync_grp,
+})

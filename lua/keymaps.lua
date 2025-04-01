@@ -10,6 +10,7 @@ vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>', opts)
 vim.keymap.set("n", "<A-S-j>", "yyp", opts)
 vim.keymap.set("n", "<A-S-k>", "yyP", opts)
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename)
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
 -- is not what someone will guess without a bit more experience.
